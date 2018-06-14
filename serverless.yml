@@ -21,12 +21,40 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*"
 
 functions:
+  awsfloodsetup:
+    handler: todos/setupAWSflood.setup
+  awsfloodcreate:
+    handler: todos/createAWSflood.create
+    events:
+      - http:
+          path: awsflood
+          method: post
   setup:
     handler: todos/setup.setup
   tablecreate:
     handler: todos/setup.create
   tabledelete:
     handler: todos/setup.delete
+  timeanalysissetup:
+    handler: todos/setuptimeanalysis.setup
+  timeanalysisdelete:
+    handler: todos/setuptimeanalysis.delete
+  txblastsetup:
+    handler: todos/setuptxblasblocknotify.setup
+  timeanalysiscreate:
+    handler: todos/createTimeAnalysis.create
+    events:
+      - http:
+          path: timeanalysis
+          method: post
+  timeanalysisscangt:
+    handler: todos/setuptimeanalysis.scangt
+  txblastcreate:
+    handler: todos/createTxBlastBlockNotify.create
+    events:
+      - http:
+          path: txblastblocknotify
+          method: post
   create:
     handler: todos/create.create
     events:
